@@ -1,4 +1,6 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using Core.Entities;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,61 +11,17 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfProductDal : IProductDal
+    public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
     {
-        public void Add(Product entity)
+        public List<ProductDetailDTO> GetProductDetails()
         {
             using (NorthwindContext context = new NorthwindContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-                Console.WriteLine("Eklendi");
-            }
-        }
-
-        public void Delete(Product entity)
-        {
-            using (NorthwindContext context = new NorthwindContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-                Console.WriteLine("Silindi");
-            }
-        }
-
-        public Product Get(Expression<Func<Product, bool>> filter)
-        {
-            using (NorthwindContext context = new NorthwindContext())
-            {
-                return context.Set<Product>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
-        {
-            using (NorthwindContext context = new NorthwindContext())
-            {
-                if (filter == null)
-                {
-                    return context.Set<Product>().ToList();
-                }
-                else
-                {
-                    return context.Set<Product>().Where(filter).ToList();
-                }
-            }
-        }
-
-        public void Update(Product entity)
-        {
-            using (NorthwindContext context = new NorthwindContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-                Console.WriteLine("Eklendi");
+                var result = from p in context.Products join c in context.Categories
+                             on p.CategoryId equals c.CategoryId
+                             select new ProductDetailDTO { ProductId = p.ProductId, ProductName = p.ProductName, CategoryName = c.CategoryName, UnitsInStock = p.UnitsInStock 
+                             };
+                return result.ToList();
             }
         }
     }
