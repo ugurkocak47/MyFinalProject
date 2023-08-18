@@ -9,9 +9,9 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //ProductTest();
-            //CategoryTest();
-            ProductDetailTest();
+            ProductTest();
+            CategoryTest();
+           // ProductDetailTest();
         }
 
         private static void ProductDetailTest()
@@ -44,9 +44,9 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetByUnitPrice(20, 400).Data)
+            foreach (var product in productManager.GetAll().Data)
             {
-                Console.WriteLine("{0} ---- {1}", product.ProductName, product.UnitPrice);
+                Console.WriteLine(product.ProductName);
             }
         }
     }
