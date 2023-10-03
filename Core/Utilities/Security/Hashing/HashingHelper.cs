@@ -26,7 +26,7 @@ namespace Core.Utilities.Security.Hashing
                 {
                     if (computedHash[i] != passwordHash[i])
                     {
-                        return false
+                        return false;
                     }
                 }
                 return true;

@@ -17,5 +17,7 @@ namespace Business.Constants
 
         public static string ProductNameAlreadyExists = "Bu isimde bir ürün zaten var";
         public static string CategoryQuantityTooMuch = "Çok fazla kategori var";
+
+        public static string AuthorizationDenied = "Yetkilendirme reddedildi";
     }
 }
