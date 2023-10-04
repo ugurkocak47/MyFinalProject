@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,16 @@ namespace Business.Constants
         public static string CategoryQuantityTooMuch = "Çok fazla kategori var";
 
         public static string AuthorizationDenied = "Yetkilendirme reddedildi";
+
+        public static string UserRegistered = "Kullanıcı kayıt edildi";
+
+        public static string UserNotFound = "Kullanıcı bulunamadı";
+
+        public static string PasswordError = "Parola hatası";
+
+        public static string SuccessfulLogin = "Giriş başarılı";
+        public static string UserAlreadyExists = "Kullanıcı zaten sistemde kayıtlı";
+
+        public static string AccessTokenCreated = "Erişim tokenı oluşturuldu";
     }
 }
